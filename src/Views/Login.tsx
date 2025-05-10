@@ -189,9 +189,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     } catch (error: any) {
       console.error('Login/OTP Error:', error)
       const message =
-        error.response?.data?.message ||
-        error.message ||
-        'خطایی در فرآیند لاگین رخ داده است.'
+      error.response?.data?.value?.message ||
+      error.response?.data?.message ||
+      error.message ||
+      'خطایی در فرآیند لاگین رخ داده است.';
+
+
       showAlert('error', null, 'خطا', message)
     } finally {
       setLoading(false)
@@ -260,8 +263,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 onChange={e => setUsername(e.target.value)}
                 leftIcon={<FaUser size={20} className='text-indigo-500' />}
                 required
-                // حذف mb-6 (فاصله اضافی قبل)
-                // اینپوت یوزرنیم بدون margin-bottom
+              // حذف mb-6 (فاصله اضافی قبل)
+              // اینپوت یوزرنیم بدون margin-bottom
               />
 
               <DynamicInput
@@ -273,15 +276,18 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 rightIcon={
                   <button
                     type='button'
+                    // onClick={() => setShowPassword(!showPassword)}
                     onClick={handleTogglePasswordVisibility}
-                    className='text-indigo-500 hover:text-purple-500 transition-colors duration-300 focus:outline-none'
+                    className='text-indigo-500 hover:text-purple-500 transition-colors duration-300 focus:outline-none cursor-pointer pointer-events-auto'
                   >
                     {showPassword ? (
-                      <FaEyeSlash size={20} />
+                      <FaEyeSlash size={18} />
                     ) : (
-                      <FaEye size={20} />
+                      <FaEye size={18} />
                     )}
                   </button>
+
+
                 }
                 required
                 className='mt-9'
@@ -290,9 +296,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               {/* فاصله دکمه از اینپوت پسورد نیز برابر فاصله جدید (۹) */}
               <button
                 type='submit'
-                className={`w-full mt-9 bg-indigo-500 text-white py-2 rounded hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 text-sm sm:text-base flex items-center justify-center ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+                className={`w-full mt-9 bg-indigo-500 text-white py-2 rounded hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 text-sm sm:text-base flex items-center justify-center ${loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 disabled={loading}
               >
                 {loading ? (
@@ -317,7 +322,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     ></path>
                   </svg>
                 ) : null}
-                ورود
+                Login
               </button>
             </>
           ) : (
@@ -336,9 +341,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
               <button
                 type='submit'
-                className={`w-full flex items-center justify-center gap-2 mt-9 bg-indigo-500 text-white py-2 rounded hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 text-sm sm:text-base ${
-                  loading ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+                className={`w-full flex items-center justify-center gap-2 mt-9 bg-indigo-500 text-white py-2 rounded hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-300 text-sm sm:text-base ${loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
                 disabled={loading}
               >
                 {loading ? (
@@ -363,7 +367,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     ></path>
                   </svg>
                 ) : null}
-                ارسال کد
+                Send Code
               </button>
             </>
           )}

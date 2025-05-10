@@ -40,7 +40,7 @@ httpClientFile.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // در صورت دریافت خطای 401، توکن را حذف کرده و به صفحه لاگین هدایت کنید
       Cookies.remove("token");
-      window.location.href = "/login";
+      // window.location.href = "/login";
     }
     return Promise.reject(error);
   }
